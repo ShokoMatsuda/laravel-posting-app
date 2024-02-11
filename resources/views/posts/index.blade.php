@@ -26,6 +26,10 @@
             <p>{{ session('flash_message') }}</p>
         @endif
 
+        @if (session('error_message'))
+            <p>{{ session('error_message') }}</p>
+        @endif
+        
         <a href="{{ route('posts.create') }}">新規投稿</a>
 
         @if($posts->isNotEmpty())
