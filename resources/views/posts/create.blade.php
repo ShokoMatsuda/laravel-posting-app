@@ -12,61 +12,65 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-light bg-light">
-            <a href="{{ route('posts.index') }}" class="navbar-brand">投稿アプリ</a>
-            <div class="container">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <div class="container">
-            <h1 class="fs-2 my-3">新規投稿</h1>
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
+    <div class="wrapper">
+        <header>
+            <nav class="navbar navbar-light bg-light">
+                <a href="{{ route('posts.index') }}" class="navbar-brand">投稿アプリ</a>
+                <div class="container">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            </form>
+                        </li>
                     </ul>
                 </div>
-            @endif
+            </nav>
+        </header>
 
-            <div class="mb-2">
-                <a href="{{ route('posts.index') }}">&lt; 戻る</a>
+        <main>
+            <div class="container">
+                <h1 class="fs-2 my-3">新規投稿</h1>
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <div class="mb-2">
+                    <a href="{{ route('posts.index') }}">&lt; 戻る</a>
+                </div>
+
+                <form action="{{ route('posts.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label for="title">タイトル</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="content">本文</label>
+                        <textarea class="form-control" name="content" id="content">{{ old('content') }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary">投稿</button>
+                </form>
             </div>
+        </main>
+        <footer class="d-flex justify-content-center align-items-center bg-light">
+            <p class="text-muted small mb-0">&copy; 投稿アプリ All rights reserved.</p>
+        </footer>
 
-            <form action="{{ route('posts.store') }}" method="POST">
-                @csrf
-                <div class="form-group mb-3">
-                    <label for="title">タイトル</label>
-                    <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
-                </div>
-                <div class="form-group mb-3">
-                    <label for="content">本文</label>
-                    <textarea class="form-control" name="content" id="content">{{ old('content') }}</textarea>
-                </div>
-                <button type="submit" class="btn btn-outline-primary">投稿</button>
-            </form>
-        </div>
-    </main>
-    <footer class="d-flex justify-content-center align-items-center bg-light">
-        <p class="text-muted small mb-0">&copy; 投稿アプリ All rights reserved.</p>
-    </footer>
-
-    {{-- Bootstrap --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        {{-- Bootstrap --}}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    </div>
 </body>
 </html>

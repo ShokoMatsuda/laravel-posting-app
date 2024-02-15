@@ -11,61 +11,66 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-light gb-light">
-            <div class="container">
-                <a href="{{ route('posts.index') }}" class="navbar-brand">投稿アプリ</a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <main>
-        <h1>投稿一覧</h1>
+    <div class="wrapper">
+        <header>
+            <nav class="navbar navbar-light gb-light">
+                <div class="container">
+                    <a href="{{ route('posts.index') }}" class="navbar-brand">投稿アプリ</a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <h1>投稿一覧</h1>
 
-        @if (session('flash_message'))
-            <p>{{ session('flash_message') }}</p>
-        @endif
-
-        @if (session('error_message'))
-            <p>{{ session('error_message') }}</p>
-        @endif
-
-        <a href="{{ route('posts.create') }}">新規投稿</a>
-
-        @if($posts->isNotEmpty())
-            @foreach($posts as $post)
-                <article>
-                    <h2>{{ $post->title }}</h2>
-                    <p>{{ $post->content }}</p>
-                    <a href="{{ route('posts.show', $post) }}">詳細</a>
-                    <a href="{{ route('posts.edit', $post) }}">編集</a>
-
-                    <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">削除</button>
-                    </form>
-                </article>
-                @endforeach
-            @else
-                <p>投稿はありません。</p>
+            @if (session('flash_message'))
+                <p>{{ session('flash_message') }}</p>
             @endif
-    </main>
 
-    <footer>
-        <p>&copy; 投稿アプリ All rights reserved.</p>
-    </footer>
+            @if (session('error_message'))
+                <p>{{ session('error_message') }}</p>
+            @endif
 
-    {{-- Bootstrap --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+            <a href="{{ route('posts.create') }}">新規投稿</a>
+
+            @if($posts->isNotEmpty())
+                @foreach($posts as $post)
+                    <article>
+                        <h2>{{ $post->title }}</h2>
+                        <p>{{ $post->content }}</p>
+                        <a href="{{ route('posts.show', $post) }}">詳細</a>
+                        <a href="{{ route('posts.edit', $post) }}">編集</a>
+
+                        <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">削除</button>
+                        </form>
+                    </article>
+                    @endforeach
+                @else
+                    <p>投稿はありません。</p>
+                @endif
+        </main>
+
+        <footer>
+            <p>&copy; 投稿アプリ All rights reserved.</p>
+        </footer>
+
+        {{-- Bootstrap --}}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    </div>
 </body>
 </html>
