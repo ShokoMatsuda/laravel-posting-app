@@ -9,16 +9,18 @@
 </head>
 <body>
     <header>
-        <nav>
-            <a href="{{ route('posts.index') }}">投稿アプリ</a>
-            <ul>
-                <li>
+        <nav class="navbar navbar-light gb-light">
+            <div class="container">
+            <a href="{{ route('posts.index') }}" class="navbar-brand">投稿アプリ</a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
                         @csrf
                     </form>
                 </li>
             </ul>
+            </div>
         </nav>
     </header>
     <main>

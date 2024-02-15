@@ -10,49 +10,55 @@
 </head>
 <body>
     <header>
-        <nav>
-            <a href="{{ route('posts.index') }}">投稿アプリ</a>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container">
+                <a href="{{ route('posts.index') }}">投稿アプリ</a>
 
-            <ul>
-                <li>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                    </form>
-                </li>
-            </ul>
+                <ul>
+                    <li>
+                        <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">ログアウト</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
 
     <main>
-        <h1>投稿編集</h1>
+        <div class="container">
+            <h1>投稿編集</h1>
 
-        @if ($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
+            @if ($errors->any())
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
 
-        <a href="{{ route('posts.index') }}">&lt; 戻る</a>
-
-        <form action="{{ route('posts.update', $post) }}" method="POST">
-            @csrf
-            @method('PATCH')
-            <div>
-                <label for="title">タイトル</label>
-                <input type="text" id="title" name="title" value="{{ old('title', $post->title) }}">
+            <div class="mb-2">
+                <a href="{{ route('posts.index') }}" class="text-decoration-none">&lt; 戻る</a>
             </div>
-            <div>
-                <label for="content">本文</label>
-                <textarea id="content" name="content">{{ old('content', $post->content) }}</textarea>
-            </div>
-            <button type="submit">更新</button>
-        </form>
+
+            <form action="{{ route('posts.update', $post) }}" method="POST">
+                @csrf
+                @method('PATCH')
+                <div class="form-group mb-3">
+                    <label for="title">タイトル</label>
+                    <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="content">本文</label>
+                    <textarea class="form-control" id="content" name="content">{{ old('content', $post->content) }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-outline-primary">更新</button>
+            </form>
+        </div>
     </main>
-    <footer>
-        <p>&copy; 投稿アプリ All rights reserved.</p>
+    <footer class="d-flex justify-content-center align-items-center bg-light">
+        <p class="text-muted small mb-0">&copy; 投稿アプリ All rights reserved.</p>
     </footer>
 
     {{-- Bootstrap --}}
